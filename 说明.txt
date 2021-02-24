@@ -1,0 +1,15 @@
+android：
+1、把pas文件和JAR包添加到工程。
+2、把so部署到对应的平台目录下，如android32平台，就是library\lib\armeabi-v7a\目录。
+3、把AndroidManifest.template.xml文件中的配置添加到你的工程的AndroidManifest.template.xml中去。
+4、引用uGETUI文件，创建TGeTuiClient实例，实现处理过程，再调用doinit方法。
+
+
+server:
+1、去个推平台注册帐号。
+2、创建应用程序。
+3、在工程中引用pas文件，并填写应用程序的相关信息。
+4、个性化推送和单个客户端推送，可以查看个推的文档，自己实现。
+
+
+作者：386809985(凌风)

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BEGIN_INCLUDE(manifest) -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="%package%"
+        android:versionCode="%versionCode%"
+        android:versionName="%versionName%"
+        android:installLocation="%installLocation%">
+	
+<!-- 自定义权限 -->
+<uses-permission android:name="getui.permission.GetuiService.你的个推APPID" />
+
+<permission
+    android:name="getui.permission.GetuiService.你的个推APPID"
+    android:protectionLevel="normal"/>	
+	
+    <%uses-permission%>
+    <uses-feature android:glEsVersion="0x00020000" android:required="True"/>
+    <application android:persistent="%persistent%" 
+        android:restoreAnyVersion="%restoreAnyVersion%" 
+        android:label="%label%" 
+        android:debuggable="%debuggable%" 
+        android:largeHeap="%largeHeap%"
+        android:icon="%icon%"
+        android:theme="%theme%"
+        android:hardwareAccelerated="%hardwareAccelerated%"
+		android:usesCleartextTraffic="true"
+        android:resizeableActivity="false">
+		
+<!-- 配置个推参数属性 -->
+<meta-data
+    android:name="PUSH_APPID"
+    android:value="你的个推APPID" />
+<meta-data
+    android:name="PUSH_APPKEY"
+    android:value="你的个推APPKEY" />
+<meta-data
+    android:name="PUSH_APPSECRET"
+    android:value="你的个推APPSECRET" />	
+
+<activity
+    android:name="com.igexin.sdk.PushActivity"
+    android:excludeFromRecents="true"
+    android:exported="false"
+    android:process=":pushservice"
+    android:taskAffinity="com.igexin.sdk.PushActivityTask"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+</activity>
+
+<activity
+     android:name="com.igexin.sdk.GActivity"
+     android:excludeFromRecents="true"
+     android:exported="true"
+     android:process=":pushservice"
+     android:taskAffinity="com.igexin.sdk.PushActivityTask"
+     android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+		
+<receiver android:name="com.igexin.sdk.PushReceiver" >
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+        <action android:name="android.intent.action.USER_PRESENT" />
+        <!-- 以下三项为可选的 action 声明，有助于提高 service 存活率 -->
+        <action android:name="android.intent.action.MEDIA_MOUNTED" />
+        <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+        <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+    </intent-filter>
+</receiver>
+		
+<service
+    android:name="com.igexin.sdk.PushService"
+    android:permission="android.permission.BIND_JOB_SERVICE"
+    android:exported="false"
+    android:label="NotificationCenter"
+    android:process=":pushservice"/>
+		
+  <service
+      android:name="com.yuesehetang.ymkh.getui.GETUIPushService"
+      android:exported="true"
+      android:label="PushService"
+      android:process=":pushservice"/>
+	  
+	<service 
+	android:name="com.yuesehetang.ymkh.getui.GETUIIntentService"
+	android:permission="android.permission.BIND_JOB_SERVICE"/>  
+	  
+    </application>
+</manifest>
+<!-- END_INCLUDE(manifest) -->
